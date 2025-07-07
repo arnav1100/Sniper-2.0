@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARNAV VIP ANALYSER – SNIPER 2.0</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    body {
+      background: #050505;
+      color: #00ffe0;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #ff004f;
+      text-shadow: 0 0 10px #ff004f, 0 0 30px #ff004f;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 25px;
+    }
+
+    input {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      background: #111;
+      color: #00ffe0;
+      box-shadow: 0 0 8px #00ffe0;
+      margin: 8px;
+      width: 220px;
+    }
+
+    button {
+      padding: 10px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      color: #000;
+      background: #00ffe0;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 0 10px #00ffe0;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00bcd4;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #00ff00;
+      text-shadow: 0 0 15px #00ff00;
+    }
+
+    .history {
+      margin-top: 30px;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #999;
+    }
+
+    .footer a {
+      color: #00ffe0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .glow {
+      color: #ff004f;
+      text-shadow: 0 0 10px #ff004f, 0 0 20px #ff004f;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ARNAV VIP ANALYSER</h1>
+  <div class="tagline">MAINTAIN 6 LEVELS!! | SNIPER 2.0 HACK</div>
+
+  <input type="text" id="periodInput" placeholder="Enter Period Number">
+  <button onclick="getPrediction()">Predict</button>
+
+  <div class="result" id="resultBox">Waiting for prediction...</div>
+
+  <div class="history" id="historyLog"></div>
+
+  <div class="footer">
+    Created by <span class="glow">@arnav_1100</span><br>
+    Join Telegram: <a href="https://t.me/+fKHabYVx_shkMDk1" target="_blank">Click here</a>
+  </div>
+
+  <script>
+    let lastPrediction = '';
+    let attempt = 1;
+
+    function getPrediction() {
+      const input = document.getElementById('periodInput').value.trim();
+      if (!input || isNaN(input)) {
+        alert("Enter a valid period number");
+        return;
+      }
+
+      const lastDigit = parseInt(input.slice(-1));
+      const midDigit = input.length >= 3 ? parseInt(input.slice(-3, -2)) : 0;
+
+      // Sniper logic with flip detection
+      let predicted = ((lastDigit + midDigit) % 2 === 0) ? "BIG" : "SMALL";
+
+      // Flip logic if second round
+      if (attempt === 2) {
+        predicted = predicted === "BIG" ? "SMALL" : "BIG";
+      }
+
+      document.getElementById('resultBox').innerText = `Prediction: ${predicted}`;
+      addToHistory(input, predicted);
+
+      // Reset for next
+      attempt = (attempt === 1) ? 2 : 1;
+    }
+
+    function addToHistory(period, prediction) {
+      const log = document.getElementById("historyLog");
+      const entry = document.createElement("div");
+      entry.innerText = `Period: ${period} → Predicted: ${prediction} (Try ${attempt})`;
+      log.prepend(entry);
+    }
+  </script>
+
+</body>
+</html>
